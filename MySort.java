@@ -1,3 +1,11 @@
+/*
+*File: MySort.java
+*Author: Emily McPherson
+*Date: 6/11/2020
+*Purpose: Class to perform sorting via Shell Sort, count critical operations, test 10 data lengths with 50 runs each, and generate reports on averaged results and coefficients of variance
+*/
+
+import java.util.Random;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,11 +25,9 @@ public class MySort implements SortInterface {
   //provides global access for counting operations
   private int tempCount = 0;
 
-private int count = 0;
-
-
 public void runSort(){
-
+  Random rand = new Random();
+  int max = 1000;
   //for each value of n:
   for (int a = 0; a < this.dataSizes.length; a++){
     //track average time for both algorithms over 50 runs
@@ -40,8 +46,7 @@ public void runSort(){
     for (int i = 0; i < 50; i++){
       int[] temp = new int[n];
       for (int m = 0; m < n; m++){
-        //temp[m] = rand.nextInt(max);
-        temp[m] = ThreadLocalRandom.current().nextInt();
+        temp[m] = rand.nextInt(max);
       }
 
       this.tempCount = 0;
@@ -49,6 +54,14 @@ public void runSort(){
       int[] recSorted = recursiveSort(temp, temp.length/2);
       long end = getTime();
       long runTime = end - start;
+
+      //Check to see if array is sorted
+      try {
+        checkSort(recSorted);
+      } catch(UnsortedException ue){
+        System.out.println("Recursive Sort Unsuccessful - Data Length: " + n + ", Attempt: " + i);
+      }
+
       recTimesForN[i] = runTime;
       recCountsForN[i] = getCount();
       trackTimeRec += runTime;
@@ -57,6 +70,12 @@ public void runSort(){
       start = getTime();
       int[] itSorted = iterativeSort(temp);
       end = getTime();
+      //Check to see if array is sorted
+      try {
+        checkSort(itSorted);
+      } catch(UnsortedException ue){
+        System.out.println("Iterative Sort Unsuccessful - Data Length: " + n + ", Attempt: " + i);
+      }
       runTime = end - start;
       itTimesForN[i] = runTime;
       itCountsForN[i] = getCount();
@@ -147,6 +166,15 @@ public void generateReport(int option){
     System.out.println("Invalid input");
   }
 }//end generateReport
+
+//Check sorting
+public void checkSort (int[] arr) throws UnsortedException {
+  for (int i = 0; i < arr.length-1; i++){
+    if (arr[i] > arr[i+1]){
+      throw new UnsortedException("Array is not sorted");
+    }
+  }
+}
 
 //Implements the Shell sort algorithm to sort lists
 @Override

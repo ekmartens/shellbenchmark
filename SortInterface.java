@@ -1,3 +1,10 @@
+/*
+*File: SortInterface.java
+*Author: Emily McPherson
+*Date: 6/11/2020
+*Purpose: Interface with methods for sorting
+*/
+
 interface SortInterface {
 
   int[] recursiveSort(int[] inout, int gap);
