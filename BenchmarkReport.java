@@ -1,0 +1,74 @@
+/*
+*File: BenchmarkReport.java
+*Author: Emily McPherson
+*Date: 6/12/2020
+*Purpose: GUI that allows input file to be selected and displays results of BenchmarkSorts
+*/
+
+import java.util.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class BenchmarkReport extends JFrame {
+
+  private JPanel reportPanel;
+  private JPanel buttonPanel;
+  private JScrollPane sp;
+  private JTable reportTable;
+  private JFileChooser fc;
+  private JButton openFile;
+  private JButton runSort;
+  private JLabel fileLabel;
+
+  public BenchmarkReport(String name){
+    super(name);
+    setLayout(new BorderLayout());
+    setSize(1200, 1200);
+    setLocationRelativeTo(null);
+    setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+
+    //panels
+    reportPanel = new JPanel();
+    buttonPanel = new JPanel();
+
+    //elements
+    openFile = new JButton("Open");
+    fileLabel = new JLabel("no file chosen");
+    buttonPanel.add(openFile);
+    buttonPanel.add(fileLabel);
+    //report
+    String[][] data = new String[][]{{"100", "509.0", "0.0", "72424.0", "76.06"},{"200", "1210.0", "0.0", "83130.0", "88.73"}};
+    String[] columns = new String[]{"Size", "Avg Count", "Coef Count", "Avg Time", "Coef Time"};
+    reportTable = new JTable(data, columns);
+    reportTable.setFillsViewportHeight(true);
+    sp = new JScrollPane(reportTable);
+
+    //open button actionlistener
+    openFile.addActionListener(new ActionListener(){
+          public void actionPerformed(ActionEvent e){
+            JFrame frame = new JFrame("Select Text File");
+            fc = new JFileChooser(".");
+            int f = fc.showOpenDialog(frame);
+            if (f == JFileChooser.APPROVE_OPTION)
+              {
+                fileLabel.setText(fc.getSelectedFile().getPath());
+              }
+          }//end actionPerformed
+        });//end ActionListener
+
+     this.add(sp, BorderLayout.CENTER);
+     this.add(buttonPanel, BorderLayout.NORTH);
+
+     //display the GUI
+     this.setVisible(true);
+  } // end constructor
+
+
+
+  public static void main(String[] args){
+    BenchmarkReport build = new BenchmarkReport("Benchmark Report");
+  }//end Main
+}//end class

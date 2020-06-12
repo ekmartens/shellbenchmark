@@ -1,7 +1,7 @@
 /*
 *File: BenchmarkSorts.java
 *Author: Emily McPherson
-*Date: 6/11/2020
+*Date: 6/10/2020
 *Purpose: Program for benchamrking Shell Sort Algorithm
 */
 

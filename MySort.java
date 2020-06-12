@@ -1,7 +1,7 @@
 /*
 *File: MySort.java
 *Author: Emily McPherson
-*Date: 6/11/2020
+*Date: 6/10/2020
 *Purpose: Class to perform sorting via Shell Sort, count critical operations, test 10 data lengths with 50 runs each, and generate reports on averaged results and coefficients of variance
 */
 

@@ -1,0 +1,12 @@
+//open button actionlistener
+openFile.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        JFrame frame = new JFrame("Select Text File");
+        fc = new JFileChooser(".");
+        int f = fc.showOpenDialog(frame);
+        if (f == JFileChooser.APPROVE_OPTION)
+          {
+            fileLabel.setText(fc.getSelectedFile().getPath());
+          }
+      }//end actionPerformed
+    });//end ActionListener

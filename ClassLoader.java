@@ -1,7 +1,7 @@
 /*
 *File: ClassLoader.java
 *Author: Emily McPherson
-*Date: 6/12/2020
+*Date: 6/11/2020
 *Purpose: Loader class to warm up JVM for benchmarking
 *Reference:
 baeldung. (2018). How to Warm Up the JVM. Baeldung. Retrieved from https://www.baeldung.com/java-jvm-warmup
