@@ -59,9 +59,25 @@ public class BenchmarkReport extends JFrame {
             int f = fc.showOpenDialog(frame);
             if (f == JFileChooser.APPROVE_OPTION)
               {
+                File file = fc.getSelectedFile();
                 fileLabel.setText(fc.getSelectedFile().getPath());
-              
-                mod.addRow(new String[]{"100", "509.0", "0.0", "72424.0", "76.06"});
+                //open chosen file
+                //for each line, save to a temp String[]
+                //add temp to mod
+                try {
+                  Scanner sc = new Scanner(file);
+                  while(sc.hasNextLine()){
+                    String nl = sc.nextLine();
+                    String[] nextRow = nl.split("\\s+");
+                    mod.addRow(nextRow);
+                  }
+                } catch (FileNotFoundException fnfe){
+                  JFrame errorFrame = new JFrame();
+                  JOptionPane.showMessageDialog(errorFrame,
+                  "File Not Found", "Error",
+                  JOptionPane.WARNING_MESSAGE);
+                }
+                //mod.addRow(new String[]{"100", "509.0", "0.0", "72424.0", "76.06"});
               }
           }//end actionPerformed
         });//end ActionListener
