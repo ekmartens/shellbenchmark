@@ -8,6 +8,7 @@
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -27,7 +28,7 @@ public class BenchmarkReport extends JFrame {
   public BenchmarkReport(String name){
     super(name);
     setLayout(new BorderLayout());
-    setSize(1200, 1200);
+    setSize(1200, 500);
     setLocationRelativeTo(null);
     setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
 
@@ -56,6 +57,9 @@ public class BenchmarkReport extends JFrame {
           public void actionPerformed(ActionEvent e){
             JFrame frame = new JFrame("Select Text File");
             fc = new JFileChooser(".");
+            FileNameExtensionFilter txtFilter = new FileNameExtensionFilter(
+     "txt files (*.txt)", "txt");
+            fc.setFileFilter(txtFilter);
             int f = fc.showOpenDialog(frame);
             if (f == JFileChooser.APPROVE_OPTION)
               {
@@ -65,6 +69,8 @@ public class BenchmarkReport extends JFrame {
                 //for each line, save to a temp String[]
                 //add temp to mod
                 try {
+                  //reset table for new input file
+                  mod.setRowCount(0);
                   Scanner sc = new Scanner(file);
                   while(sc.hasNextLine()){
                     String nl = sc.nextLine();
