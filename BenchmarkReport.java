@@ -7,6 +7,7 @@
 
 import java.util.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -40,9 +41,13 @@ public class BenchmarkReport extends JFrame {
     buttonPanel.add(openFile);
     buttonPanel.add(fileLabel);
     //report
-    String[][] data = new String[][]{{"100", "509.0", "0.0", "72424.0", "76.06"},{"200", "1210.0", "0.0", "83130.0", "88.73"}};
+    //String[][] data = new String[][]{};
     String[] columns = new String[]{"Size", "Avg Count", "Coef Count", "Avg Time", "Coef Time"};
-    reportTable = new JTable(data, columns);
+    DefaultTableModel mod = new DefaultTableModel();
+    for (int i = 0; i < columns.length; i++){
+      mod.addColumn(columns[i]);
+    }
+    reportTable = new JTable(mod);
     reportTable.setFillsViewportHeight(true);
     sp = new JScrollPane(reportTable);
 
@@ -55,6 +60,8 @@ public class BenchmarkReport extends JFrame {
             if (f == JFileChooser.APPROVE_OPTION)
               {
                 fileLabel.setText(fc.getSelectedFile().getPath());
+              
+                mod.addRow(new String[]{"100", "509.0", "0.0", "72424.0", "76.06"});
               }
           }//end actionPerformed
         });//end ActionListener
